@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_music_player_app/musics.dart';
+import 'package:flutter_music_player_app/screens/music_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -107,7 +108,12 @@ class _MyAppState extends State<MyApp> {
                   itemCount: musics.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => Player(musics[index]))));
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Row(
@@ -117,7 +123,9 @@ class _MyAppState extends State<MyApp> {
                               width: 80.0,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
-                                child: CircleAvatar(
+                                child: Container(
+                                  height: 200,
+                                  width: 300,
                                   child: Image.network(
                                     musics[index].image,
                                     fit: BoxFit.cover,
@@ -125,20 +133,25 @@ class _MyAppState extends State<MyApp> {
                                 ),
                               ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  musics[index].title,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  musics[index].artist,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ],
+                            Container(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    musics[index].title,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    musics[index].singer,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Divider()
+                                ],
+                              ),
                             ),
                             const Spacer(),
                             const Icon(
